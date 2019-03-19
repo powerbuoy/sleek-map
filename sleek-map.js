@@ -3,11 +3,12 @@
 
 	//////////////
 	// Constructor
-	var SleekMap = function (mapEl, config) {
+	var SleekMap = function (mapEl, config, mapStyles) {
 		this.mapEl = mapEl;
 		this.config = config;
 		this.markers = [];
 		this.kmlLayers = [];
+		this.mapStyles = mapStyles || [];
 
 		// We will most likely need an info window
 		this.infoWindow = new google.maps.InfoWindow();
@@ -342,9 +343,9 @@
 				config.styles = JSON.parse(mapEl.dataset.styles);
 			}
 			catch (e) {
-				// If styles is just a string - check if it's defined in window.SLEEK_CHILD_CONFIG.MAP_STYLES
-				if (typeof window.SLEEK_CHILD_CONFIG !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[mapEl.dataset.styles] !== 'undefined') {
-					config.styles = JSON.parse(window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[mapEl.dataset.styles]);
+				// If styles is just a string - check if it's defined in this.mapStyles
+				if (typeof this.mapStyles[mapEl.dataset.styles] !== 'undefined') {
+					config.styles = JSON.parse(this.mapStyles[mapEl.dataset.styles]);
 				}
 			}
 		}
@@ -354,10 +355,10 @@
 			try {
 				config.mapTypes = JSON.parse(mapEl.dataset.mapTypes);
 
-				// If map type styles is just a string - map it to the window.SLEEK_CHILD_CONFIG.MAP_STYLES
+				// If map type styles is just a string - map it to the this.mapStyles
 				for (var i = 0; i < config.mapTypes.length; i++) {
-					if (typeof config.mapTypes[i].styles === 'string' && typeof window.SLEEK_CHILD_CONFIG !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[config.mapTypes[i].styles] !== 'undefined') {
-						config.mapTypes[i].styles = JSON.parse(window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[config.mapTypes[i].styles]);
+					if (typeof config.mapTypes[i].styles === 'string' && typeof this.mapStyles[config.mapTypes[i].styles] !== 'undefined') {
+						config.mapTypes[i].styles = JSON.parse(this.mapStyles[config.mapTypes[i].styles]);
 					}
 				}
 			}
