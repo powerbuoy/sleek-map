@@ -3,12 +3,11 @@
 
 	//////////////
 	// Constructor
-	var SleekMap = function (mapEl, config, mapStyles) {
+	var SleekMap = function (mapEl, config) {
 		this.mapEl = mapEl;
 		this.config = config;
 		this.markers = [];
 		this.kmlLayers = [];
-		this.mapStyles = mapStyles || [];
 
 		// We will most likely need an info window
 		this.infoWindow = new google.maps.InfoWindow();
@@ -321,7 +320,7 @@
 
 	//////////////////////////////////////////
 	// Parse a map element for data-attributes
-	SleekMap.parseMapEl = function (mapEl) {
+	SleekMap.parseMapEl = function (mapEl, mapStyles) {
 		var config = {};
 
 		// Zoom
@@ -343,9 +342,9 @@
 				config.styles = JSON.parse(mapEl.dataset.styles);
 			}
 			catch (e) {
-				// If styles is just a string - check if it's defined in this.mapStyles
-				if (typeof this.mapStyles[mapEl.dataset.styles] !== 'undefined') {
-					config.styles = JSON.parse(this.mapStyles[mapEl.dataset.styles]);
+				// If styles is just a string - check if it's defined in mapStyles
+				if (typeof mapStyles[mapEl.dataset.styles] !== 'undefined') {
+					config.styles = JSON.parse(mapStyles[mapEl.dataset.styles]);
 				}
 			}
 		}
@@ -355,10 +354,10 @@
 			try {
 				config.mapTypes = JSON.parse(mapEl.dataset.mapTypes);
 
-				// If map type styles is just a string - map it to the this.mapStyles
+				// If map type styles is just a string - map it to the mapStyles
 				for (var i = 0; i < config.mapTypes.length; i++) {
-					if (typeof config.mapTypes[i].styles === 'string' && typeof this.mapStyles[config.mapTypes[i].styles] !== 'undefined') {
-						config.mapTypes[i].styles = JSON.parse(this.mapStyles[config.mapTypes[i].styles]);
+					if (typeof config.mapTypes[i].styles === 'string' && typeof mapStyles[config.mapTypes[i].styles] !== 'undefined') {
+						config.mapTypes[i].styles = JSON.parse(mapStyles[config.mapTypes[i].styles]);
 					}
 				}
 			}
