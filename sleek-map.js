@@ -342,9 +342,9 @@
 				config.styles = JSON.parse(mapEl.dataset.styles);
 			}
 			catch (e) {
-				// If styles is just a string - check if it's defined in SLEEK_CHILD_CONFIG.MAP_STYLES
-				if (typeof SLEEK_CHILD_CONFIG !== 'undefined' && typeof SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES !== 'undefined' && typeof SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[mapEl.dataset.styles] !== 'undefined') {
-					config.styles = JSON.parse(SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[mapEl.dataset.styles]);
+				// If styles is just a string - check if it's defined in window.SLEEK_CHILD_CONFIG.MAP_STYLES
+				if (typeof window.SLEEK_CHILD_CONFIG !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[mapEl.dataset.styles] !== 'undefined') {
+					config.styles = JSON.parse(window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[mapEl.dataset.styles]);
 				}
 			}
 		}
@@ -354,10 +354,10 @@
 			try {
 				config.mapTypes = JSON.parse(mapEl.dataset.mapTypes);
 
-				// If map type styles is just a string - map it to the SLEEK_CHILD_CONFIG.MAP_STYLES
+				// If map type styles is just a string - map it to the window.SLEEK_CHILD_CONFIG.MAP_STYLES
 				for (var i = 0; i < config.mapTypes.length; i++) {
-					if (typeof config.mapTypes[i].styles === 'string' && typeof SLEEK_CHILD_CONFIG !== 'undefined' && typeof SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES !== 'undefined' && typeof SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[config.mapTypes[i].styles] !== 'undefined') {
-						config.mapTypes[i].styles = JSON.parse(SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[config.mapTypes[i].styles]);
+					if (typeof config.mapTypes[i].styles === 'string' && typeof window.SLEEK_CHILD_CONFIG !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES !== 'undefined' && typeof window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[config.mapTypes[i].styles] !== 'undefined') {
+						config.mapTypes[i].styles = JSON.parse(window.SLEEK_CHILD_CONFIG.GOOGLE_MAPS_STYLES[config.mapTypes[i].styles]);
 					}
 				}
 			}
