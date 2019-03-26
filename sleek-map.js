@@ -26,6 +26,8 @@
 		};
 
 		// Add map types
+		var firstMapType = null;
+
 		if (this.config.mapTypes && this.config.mapTypes.length) {
 			// Just one type
 			if (this.config.mapTypes.length === 1) {
@@ -55,6 +57,7 @@
 					}
 				}
 
+				firstMapType = mapTypeIds[0];
 				this.mapOptions.mapTypeControlOptions = {
 					mapTypeIds: mapTypeIds
 				};
@@ -74,6 +77,11 @@
 					);
 				}
 			}
+		}
+
+		// Finally set the first map type as active
+		if (firstMapType) {
+			this.map.setMapTypeId(firstMapType);
 		}
 
 		// Geolocation
